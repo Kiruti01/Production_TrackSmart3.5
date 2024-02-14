@@ -9,6 +9,20 @@ const connectDB = require("./config/connectDB");
 const uploadRoute = require("./controllers/uploadRoute");
 // const upload = multer({ dest: "uploads/" });
 // const { cloudinary } = require("./utils/cloudinary");
+const mongoose = require('mongoose')
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URL);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
+
+app.all('*', (req,res) => {
+    res.json({"every thing":"is awesome"})
+});
 
 //config dotenv file
 // dotenv.config();
@@ -59,4 +73,10 @@ const PORT = 8080 || process.env.PORT;
 //listening
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+});
+
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
 });
