@@ -15,7 +15,7 @@ const uploadRoute = require("./controllers/uploadRoute");
 require("dotenv").config();
 
 //database call
-connectDB();
+// connectDB();
 
 //rest obj
 const app = express();
